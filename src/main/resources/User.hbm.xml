@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.angel.beans.UserBean" table="users_table">
+		<meta attribute="class-description">
+			This class contains the users detail.
+		</meta>
+		<id name="id" type="int" column="id">
+			<generator class="native" />
+		</id>
+		
+		<property name="userid" column="userid" type="string" />
+		<property name="lat" column="lat" type="string" />
+		<property name="lon" column="lon" type="string" />		
+		<property name="status" type="int" column="status" />
+
+	</class>
+</hibernate-mapping>
