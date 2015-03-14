@@ -1,5 +1,6 @@
 com\angel\database\DBConnection.class
 com\angel\services\beans\UserServiceBean.class
+com\angel\webservices\BasicService$1.class
 com\angel\util\ServiceUtil.class
 com\angel\webservices\BasicService.class
 com\angel\beans\UserBean.class

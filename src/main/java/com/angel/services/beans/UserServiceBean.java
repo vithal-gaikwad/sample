@@ -12,6 +12,15 @@ public class UserServiceBean {
     private String Lat;
     private String Lon;
     
+    public UserServiceBean() {} // JAXB needs this
+
+    public UserServiceBean(int Id, String Userid,String Lat,String Lon) {
+      this.Id = Id;
+     this.Userid = Userid;
+     this.Lat = Lat;
+     this.Lon = Lon;
+    }
+    
     @XmlElement(name = "Id")
     public int getId() {
         return Id;

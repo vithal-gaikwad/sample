@@ -1,6 +1,9 @@
 package com.angel.webservices;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -9,6 +12,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -36,7 +40,7 @@ public class BasicService {
 			return Response.status(412).entity(errorBean).build();
 		} else {
 			try {
-				UserServiceBean userResp = new UserServiceBean();
+				UserServiceBean userResp = null;
 				DBUtils dt = new DBUtils();
 				userResp = dt.getData(userid);
 				if(userResp!=null)
@@ -47,7 +51,32 @@ public class BasicService {
 
 			} catch (Exception e) {
 				logger.error("ERROR @ getUserData : " + e);
-				e.printStackTrace();
+				return Response.status(500).entity(ServiceUtil.getError("ERROR", "Please try again")).build();
+			}
+		}
+	}
+	
+	@Path("/deleteUser")
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response deleteUser(@QueryParam("userid") String userid) {
+
+		if (userid == null || userid.trim().equals("") || userid.equals("0")) {
+			ErrorEntityBean errorBean = ServiceUtil.getError("FORM_ERROR", "Please provide userid.");
+			return Response.status(412).entity(errorBean).build();
+		} else {
+			try {
+				DBUtils dt = new DBUtils();
+				boolean flag = dt.deleteUser(userid);
+				if(flag)
+					return Response.status(200).entity(ServiceUtil.getSuccess("SUCCESS", "User deleted successfully."))
+							.build();
+				else
+					return Response.status(200).entity(ServiceUtil.getError("NO_DATA", "No data with given userid."))
+							.build();
+
+			} catch (Exception e) {
+				logger.error("ERROR @ getUserData : " + e);
 				return Response.status(500).entity(ServiceUtil.getError("ERROR", "Please try again")).build();
 			}
 		}
@@ -59,7 +88,12 @@ public class BasicService {
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response getAllUsers() {
 		
-		return Response.status(200).entity("OK").build();
+		List<UserServiceBean> userSerList=null;
+		DBUtils dt=new DBUtils();
+		userSerList=dt.getAllUsers();
+		
+		return Response.ok().entity(new GenericEntity<List<UserServiceBean>>(userSerList) {}).build();
+		
 	}
 
 	@POST
@@ -83,8 +117,7 @@ public class BasicService {
 
 
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error("ERROR @ postUserData : " + e);
 				return Response.status(500).entity(ServiceUtil.getError("ERROR", "Please try again")).build();
 			}
 		}
@@ -115,8 +148,7 @@ public class BasicService {
 				}			
 
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error("ERROR @ postCoords : " + e);				
 				return Response.status(500).entity(ServiceUtil.getError("ERROR", "Please try again")).build();
 			}
 		}
