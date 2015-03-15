@@ -79,7 +79,7 @@
 		<profile>
 			<id>local</id>
 			<properties>
-				<rootPath>http://localhost:8080/sample/</rootPath>
+				<rootPath>http://localhost:7080/sample/</rootPath>
 				<mysql.url>jdbc:mysql://localhost:3306/sample?autoReconnect=true</mysql.url>
 				<mysql.username>root</mysql.username>
 				<mysql.password>root</mysql.password>

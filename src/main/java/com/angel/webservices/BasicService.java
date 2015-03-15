@@ -1,7 +1,6 @@
 package com.angel.webservices;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,16 +32,16 @@ public class BasicService {
 	@Path("/getUserData")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response getUserData(@QueryParam("userid") String userid) {
+	public Response getUserData(@QueryParam("userid") String userId) {
 
-		if (userid == null || userid.trim().equals("") || userid.equals("0")) {
+		if (userId == null || userId.trim().equals("") || userId.equals("0")) {
 			ErrorEntityBean errorBean = ServiceUtil.getError("FORM_ERROR", "Please provide userid.");
 			return Response.status(412).entity(errorBean).build();
 		} else {
 			try {
 				UserServiceBean userResp = null;
 				DBUtils dt = new DBUtils();
-				userResp = dt.getData(userid);
+				userResp = dt.getData(userId);
 				if(userResp!=null)
 					return Response.status(200).entity(userResp).build();
 				else
@@ -59,15 +58,15 @@ public class BasicService {
 	@Path("/deleteUser")
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response deleteUser(@QueryParam("userid") String userid) {
+	public Response deleteUser(@QueryParam("userid") String userId) {
 
-		if (userid == null || userid.trim().equals("") || userid.equals("0")) {
+		if (userId == null || userId.trim().equals("") || userId.equals("0")) {
 			ErrorEntityBean errorBean = ServiceUtil.getError("FORM_ERROR", "Please provide userid.");
 			return Response.status(412).entity(errorBean).build();
 		} else {
 			try {
 				DBUtils dt = new DBUtils();
-				boolean flag = dt.deleteUser(userid);
+				boolean flag = dt.deleteUser(userId);
 				if(flag)
 					return Response.status(200).entity(ServiceUtil.getSuccess("SUCCESS", "User deleted successfully."))
 							.build();
@@ -99,16 +98,16 @@ public class BasicService {
 	@POST
 	@Path("/postUserData")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response postUserData(@FormParam("lat") String lat, @FormParam("lon") String lon,@FormParam("userid") String userid) {
+	public Response postUserData(@FormParam("lat") String lat, @FormParam("lon") String lon,@FormParam("userid") String userId) {
 
-		if (userid == null || userid.trim().equals("") || userid.equals("0")) {
+		if (userId == null || userId.trim().equals("") || userId.equals("0")) {
 			ErrorEntityBean errorBean = ServiceUtil.getError("FORM_ERROR", "Please provide userid.");
 			return Response.status(412).entity(errorBean).build();
 		} else { 
 			try {
 
 				DBUtils dt=new DBUtils();
-				int result=dt.postData(userid, lat, lon);
+				int result=dt.postData(userId, lat, lon);
 				if(result>0)					 
 					return Response.status(200).entity(ServiceUtil.getSuccess("SUCCESS", "Data posted successfully.")).build();
 				else
@@ -126,20 +125,20 @@ public class BasicService {
 	@POST
 	@Path("/registerUser")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response postCoords(@FormParam("userid") String userid) {
+	public Response postCoords(@FormParam("userid") String userId) {
 
-		if (userid == null || userid.trim().equals("") || userid.equals("0")) {
+		if (userId == null || userId.trim().equals("") || userId.equals("0")) {
 			ErrorEntityBean errorBean = ServiceUtil.getError("FORM_ERROR", "Please provide userid.");
 			return Response.status(412).entity(errorBean).build();
 		} else { 
 			try {
 
 				DBUtils dt=new DBUtils();
-				String status=dt.isUserExist(userid);
+				String status=dt.isUserExist(userId);
 				if (status.equalsIgnoreCase("true"))					 
 					return Response.status(200).entity(ServiceUtil.getSuccess("FAILURE", "User already exists please try with another userid.")).build();
 				else {
-					String isExistStatus=dt.registerUser(userid);
+					String isExistStatus=dt.registerUser(userId);
 					if (isExistStatus.equalsIgnoreCase("true"))					 
 						return Response.status(200).entity(ServiceUtil.getSuccess("SUCCESS", "User registered successfully.")).build();
 					else

@@ -1,23 +1,25 @@
 package com.angel.beans;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 public class UserBean {
 
 	private int id;
-	private String userid;
+	private String userId;
 	private String lat;
-	private String lon;   
+	private String lon;  
+	private Date lastUpdated;   
 	private int status;
 
 	public UserBean() {
 
 	}
 
-	public UserBean(String userId, String lat, String lon) {
-		this.userid = userid;
+	public UserBean(String userId, String lat, String lon, Date lastUpdated) {
+		this.userId = userId;
 		this.lat = lat;
 		this.lon = lon;
+		this.lastUpdated =lastUpdated;
 	}
 
 	public int getId() {
@@ -28,12 +30,12 @@ public class UserBean {
 		this.id = id;
 	}
 
-	public String getUserid() {
-		return userid;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public String getLat() {
@@ -51,6 +53,14 @@ public class UserBean {
 	public void setLon(String lon) {
 		this.lon = lon;
 	}
+	
+	public Date getLastUpdated() {
+		return lastUpdated;
+	}
+
+	public void setLastUpdated(Date lastUpdated) {
+		this.lastUpdated = lastUpdated;
+	}
 
 	public int getStatus() {
 		return status;
@@ -59,6 +69,4 @@ public class UserBean {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-
-
 }

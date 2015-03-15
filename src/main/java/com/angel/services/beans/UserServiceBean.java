@@ -3,58 +3,69 @@ package com.angel.services.beans;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.Date;
 
 @XmlRootElement(name = "User")
-@XmlType(propOrder = { "id","userid", "lat", "lon" })
+@XmlType(propOrder = { "id","userId", "lat", "lon", "lastUpdated" })
 public class UserServiceBean {
-	private int Id;
-    private String Userid;
-    private String Lat;
-    private String Lon;
+	private int id;
+    private String userId;
+    private String lat;
+    private String lon;
+    private Date lastUpdated;
     
     public UserServiceBean() {} // JAXB needs this
 
-    public UserServiceBean(int Id, String Userid,String Lat,String Lon) {
-      this.Id = Id;
-     this.Userid = Userid;
-     this.Lat = Lat;
-     this.Lon = Lon;
+    public UserServiceBean(int id, String userId,String lat,String lon, Date lastUpdated) {
+      this.id = id;
+     this.userId = userId;
+     this.lat = lat;
+     this.lon =lon;
+     this.lastUpdated =lastUpdated;
     }
     
-    @XmlElement(name = "Id")
+    @XmlElement(name = "id")
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-    	Id = id;
+    	this.id = id;
     }
 
-    @XmlElement(name = "Userid")
-    public String getUserid() {
-        return Userid;
+    @XmlElement(name = "userId")
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserid(String userid) {
-    	Userid = userid;
+    public void setUserId(String userId) {
+    	this.userId = userId;
     }
 
-    @XmlElement(name = "Lat")
+    @XmlElement(name = "lat")
     public String getLat() {
-        return Lat;
+        return lat;
     }
 
     public void setLat(String lat) {
-    	Lat = lat;
+    	this.lat = lat;
     }
 
-    @XmlElement(name = "Lon")
+    @XmlElement(name = "lon")
     public String getLon() {
-        return Lon;
+        return lon;
     }
 
     public void setLon(String lon) {
-    	Lon = lon;
+    	this.lon = lon;
     }
+    
+    @XmlElement(name = "lastUpdated")
+	public Date getLastUpdated() {
+		return lastUpdated;
+	}
 
+	public void setLastUpdated(Date lastUpdated) {
+		this.lastUpdated = lastUpdated;
+	}
 }

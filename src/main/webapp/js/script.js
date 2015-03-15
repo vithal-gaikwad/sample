@@ -14,8 +14,8 @@ function getLocation() {
 function showPosition(position) {
   //  lat = position.coords.latitude;
   //  lon = position.coords.longitude;
-    latlon = new google.maps.LatLng(lat, lon);
-   // latlon = new google.maps.LatLng('17.4431728', '78.45198169999999');
+   // latlon = new google.maps.LatLng(lat, lon);
+    latlon = new google.maps.LatLng('17.4431728', '78.45198169999999');
     //alert("lat"+lat);
    // alert("lon"+lon);
 

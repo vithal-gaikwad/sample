@@ -1,6 +1,6 @@
 package com.angel.util;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,7 +20,7 @@ public class DBUtils {
 
 	/** ===================getData=============================== */
 
-	public UserServiceBean getData(String userid) {
+	public UserServiceBean getData(String userId) {
 
 		Session session = DBConnection.getSessionFactory().openSession();
 
@@ -30,14 +30,15 @@ public class DBUtils {
 		try {
 			tx = session.beginTransaction();
 			List<?> users = session.createQuery(
-					"FROM UserBean where userid='" + userid + "' and status=1")
+					"FROM UserBean where userId='" + userId+ "' and status=1")
 					.list();
 			for (Iterator<?> iterator = users.iterator(); iterator.hasNext();) {
 				user = (UserBean) iterator.next();
 				userSer.setId(user.getId());
-				userSer.setUserid(userid);
+				userSer.setUserId(userId);
 				userSer.setLat(user.getLat());
 				userSer.setLon(user.getLon());
+				userSer.setLastUpdated(user.getLastUpdated());
 			}
 			tx.commit();
 		} catch (HibernateException e) {
@@ -52,15 +53,15 @@ public class DBUtils {
 
 	/** ===================deleteUser=============================== */
 
-	public boolean deleteUser(String userid) {
+	public boolean deleteUser(String userId) {
 
 		Session session = DBConnection.getSessionFactory().openSession();
 		try {
 			Transaction transaction = null;
 			transaction = session.beginTransaction();
 			Query q = session
-					.createQuery("FROM UserBean where userid = :userid ");
-			q.setParameter("userid", userid);
+					.createQuery("FROM UserBean where userId = :userId ");
+			q.setParameter("userId", userId);
 
 			UserBean fb = (UserBean) q.list().get(0);
 			fb.setStatus(0);
@@ -97,9 +98,10 @@ public class DBUtils {
 				user = (UserBean) iterator.next();
 				UserServiceBean userSer = new UserServiceBean();
 				userSer.setId(user.getId());
-				userSer.setUserid(user.getUserid());
+				userSer.setUserId(user.getUserId());
 				userSer.setLat(user.getLat());
 				userSer.setLon(user.getLon());
+				userSer.setLastUpdated(user.getLastUpdated());
 				userSerList.add(userSer);
 			}
 			tx.commit();
@@ -115,7 +117,7 @@ public class DBUtils {
 	}
 
 	/** ===================postData=============================== */
-	public int postData(String userid, String lat, String lon) {
+	public int postData(String userId, String lat, String lon) {
 
 		Session session = DBConnection.getSessionFactory().openSession();
 		Transaction tx = null;
@@ -124,11 +126,13 @@ public class DBUtils {
 		try {
 			tx = session.beginTransaction();
 			Query query = session
-					.createQuery("UPDATE UserBean set lat = :lat , lon= :lon where userid = :userid and status = :status");
+					.createQuery("UPDATE UserBean set lat = :lat , lon= :lon , lastUpdated = :lastUpdated where userId = :userId and status = :status");
 
+			Date lastUpdated=new Date();
 			query.setParameter("lat", lat);
 			query.setParameter("lon", lon);
-			query.setParameter("userid", userid);
+			query.setParameter("lastUpdated", lastUpdated);
+			query.setParameter("userId", userId);
 			query.setParameter("status", 1);
 
 			result = query.executeUpdate();
@@ -147,10 +151,10 @@ public class DBUtils {
 	}
 
 	/** ===================registerUser=============================== */
-	public String registerUser(String userid) {
+	public String registerUser(String userId) {
 
 		// check already user exist
-		String isExistStatus = isUserExist(userid);
+		String isExistStatus = isUserExist(userId);
 
 		if (isExistStatus.equalsIgnoreCase("false")) {
 			Session session = DBConnection.getSessionFactory().openSession();
@@ -160,7 +164,7 @@ public class DBUtils {
 				tx = session.beginTransaction();
 
 				UserBean user = new UserBean();
-				user.setUserid(userid);
+				user.setUserId(userId);
 				user.setLat("");
 				user.setLon("");
 				user.setStatus(1);
@@ -184,19 +188,19 @@ public class DBUtils {
 	}
 
 	/** ===================isUserExist=============================== */
-	public String isUserExist(String userid) {
+	public String isUserExist(String userId) {
 		Session session = DBConnection.getSessionFactory().openSession();
 		String status = "false";
 		try {
-			Query qry = session.createQuery("FROM UserBean where userid='"
-					+ userid + "' ");
+			Query qry = session.createQuery("FROM UserBean where userId='"
+					+ userId + "' ");
 
 			List list = qry.list();
 			Iterator<UserBean> it = list.iterator();
 			if (it.hasNext()) {
 				UserBean userBean = it.next();
-				String userName = userBean.getUserid();
-				if (userName.equalsIgnoreCase(userid))
+				String userName = userBean.getUserId();
+				if (userName.equalsIgnoreCase(userId))
 					status = "true";
 			}
 		} catch (Exception e) {

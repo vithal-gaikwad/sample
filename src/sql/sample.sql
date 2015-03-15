@@ -1,6 +1,5 @@
 CREATE DATABASE  IF NOT EXISTS `sample` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `sample`;
--- MySQL dump 10.13  Distrib 5.6.17, for Win32 (x86)
 --
 -- Host: localhost    Database: sample
 -- ------------------------------------------------------
@@ -26,9 +25,10 @@ DROP TABLE IF EXISTS `users_table`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users_table` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userid` varchar(45) DEFAULT NULL,
+  `user_id` varchar(45) DEFAULT NULL,
   `lat` varchar(45) DEFAULT NULL,
   `lon` varchar(45) DEFAULT NULL,
+  `last_updated` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `status` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
@@ -40,7 +40,7 @@ CREATE TABLE `users_table` (
 
 LOCK TABLES `users_table` WRITE;
 /*!40000 ALTER TABLE `users_table` DISABLE KEYS */;
-INSERT INTO `users_table` VALUES (1,'user1','17.4431728','78.45198169999999',1),(2,'user2','17.4431728','78.45198169999999',1),(3,'user3','','',1),(4,'user4','22','22',1),(5,'user5','22','22',0),(6,'test1','','',1),(7,'test2','','',1);
+INSERT INTO `users_table` (id,user_id,lat,lon,status) VALUES (1,'user1','17.4431728','78.45198169999999',1),(2,'user2','17.4431728','78.45198169999999',1),(3,'user3','','',1),(4,'user4','22','22',1),(5,'user5','22','22',0),(6,'test1','','',1),(7,'test2','','',1);
 /*!40000 ALTER TABLE `users_table` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

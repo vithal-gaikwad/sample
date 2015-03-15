@@ -12,9 +12,10 @@
 			<generator class="native" />
 		</id>
 		
-		<property name="userid" column="userid" type="string" />
+		<property name="userId" column="user_id" type="string" />
 		<property name="lat" column="lat" type="string" />
-		<property name="lon" column="lon" type="string" />		
+		<property name="lon" column="lon" type="string" />	
+		<property name="lastUpdated" column="last_updated" type="timestamp" />		
 		<property name="status" type="int" column="status" />
 
 	</class>
