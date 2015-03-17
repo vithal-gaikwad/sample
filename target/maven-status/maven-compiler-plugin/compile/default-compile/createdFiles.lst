@@ -1,10 +1,10 @@
 com\angel\database\DBConnection.class
+com\angel\services\beans\UserServiceBean.class
+com\angel\webservices\BasicService$1.class
+com\angel\util\ServiceUtil.class
 com\angel\webservices\BasicService.class
+com\angel\beans\UserBean.class
+com\angel\util\DBUtils.class
+com\angel\util\PropertiesUtil.class
 com\angel\services\beans\ErrorEntityBean.class
 com\angel\services\beans\SuccessServiceBean.class
-com\angel\util\ServiceUtil.class
-com\angel\webservices\BasicService$1.class
-com\angel\services\beans\UserServiceBean.class
-com\angel\beans\UserBean.class
-com\angel\util\PropertiesUtil.class
-com\angel\util\DBUtils.class

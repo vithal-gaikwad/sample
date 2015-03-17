@@ -14,13 +14,13 @@
 
 		<!-- Assume students is the database name -->
 		<property name="hibernate.connection.url">
-		${mysql.url}			
+		jdbc:mysql://localhost:3306/sample?autoReconnect=true			
 		</property>
 		<property name="hibernate.connection.username">
-		${mysql.username}
+		root
 		</property>
 		<property name="hibernate.connection.password">
-		${mysql.password}
+		root
 		</property>
 
 		<!-- <property name="hibernate.connection.pool_size">10</property> -->

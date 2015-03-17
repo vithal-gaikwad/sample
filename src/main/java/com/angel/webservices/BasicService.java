@@ -39,7 +39,7 @@ public class BasicService {
 			return Response.status(412).entity(errorBean).build();
 		} else {
 			try {
-				UserServiceBean userResp = null;
+				UserServiceBean userResp = new UserServiceBean();
 				DBUtils dt = new DBUtils();
 				userResp = dt.getData(userId);
 				if(userResp!=null)

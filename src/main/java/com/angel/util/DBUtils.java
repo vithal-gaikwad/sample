@@ -26,7 +26,7 @@ public class DBUtils {
 
 		Transaction tx = null;
 		UserBean user = new UserBean();
-		UserServiceBean userSer = null;
+		UserServiceBean userSer = new UserServiceBean();
 		try {
 			tx = session.beginTransaction();
 			List<?> users = session.createQuery(
@@ -60,8 +60,9 @@ public class DBUtils {
 			Transaction transaction = null;
 			transaction = session.beginTransaction();
 			Query q = session
-					.createQuery("FROM UserBean where userId = :userId ");
+					.createQuery("FROM UserBean where userId = :userId and status = :status");
 			q.setParameter("userId", userId);
+			q.setParameter("status", 1);
 
 			UserBean fb = (UserBean) q.list().get(0);
 			fb.setStatus(0);
