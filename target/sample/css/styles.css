@@ -17,6 +17,14 @@ html,body {
 	text-align: center;
 	padding-top:20px;
 }
+a{
+	text-decoration:none;
+}
+#welcome-admin-text{
+	text-align: center;
+	padding-top:20px;
+	padding-bottom:20px;
+}
 #lastUpdate{
 	text-align: center;
 	padding-top:30px;

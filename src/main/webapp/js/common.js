@@ -13,10 +13,12 @@ $(document).ready(function() {
 	
 	$('#lastUpdate').hide();
 	$.get("http://ipinfo.io", function(response) {
-	    alert(response.city);
+	   // alert(response.city);
 	}, "jsonp");
 	
-	$.get('http://jsonip.com/', function(r){ alert(r.ip); });	
+	$.get('http://jsonip.com/', function(r){ 
+		//alert(r.ip); 
+		});	
 $.ajax({
 	type : "GET",
 	url : ROOT_CONTEXT_URL + 'getAllUsers',
